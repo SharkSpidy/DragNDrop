@@ -32,6 +32,19 @@ while True:
 
     img, hands = detector.findHands(img, draw=True)  # Now returns both image and hand list
 
+    if hands:
+        hand = hands[0]
+        lmList = hand['lmList']  # List of 21 landmarks
+        fingers = detector.fingersUp(hand)
+
+        # Check distance between index and middle finger tips (landmarks 8 & 12)
+        length, _, _ = detector.findDistance(lmList[8], lmList[12], img, draw=False)
+
+        if length < 30:
+            cursor = lmList[8]
+            for rect in rectList:
+                rect.update(cursor)
+
 
 
     cv2.imshow("Image", out)

@@ -45,6 +45,15 @@ while True:
             for rect in rectList:
                 rect.update(cursor)
 
+    # Create transparent layer
+    imgNew = np.zeros_like(img, np.uint8)
+    for rect in rectList:
+        cx, cy = rect.posCenter
+        w, h = rect.size
+        cv2.rectangle(imgNew, (cx - w // 2, cy - h // 2),
+                      (cx + w // 2, cy + h // 2), colorR, cv2.FILLED)
+        cvzone.cornerRect(imgNew, (cx - w // 2, cy - h // 2, w, h), 20, rt=0)
+
 
 
     cv2.imshow("Image", out)

@@ -54,7 +54,11 @@ while True:
                       (cx + w // 2, cy + h // 2), colorR, cv2.FILLED)
         cvzone.cornerRect(imgNew, (cx - w // 2, cy - h // 2, w, h), 20, rt=0)
 
-
+    # Blend transparent overlay
+    out = img.copy()
+    alpha = 0.5
+    mask = imgNew.astype(bool)
+    out[mask] = cv2.addWeighted(img, alpha, imgNew, 1 - alpha, 0)[mask]
 
     cv2.imshow("Image", out)
     cv2.waitKey(1)

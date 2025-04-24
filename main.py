@@ -23,3 +23,16 @@ class DragRect():
         if cx - w // 2 < cursor[0] < cx + w // 2 and \
            cy - h // 2 < cursor[1] < cy + h // 2:
             self.posCenter = cursor
+
+rectList = [DragRect([x * 250 + 150, 150]) for x in range(5)]
+
+while True:
+    success, img = cap.read()
+    img = cv2.flip(img, 1)
+
+    img, hands = detector.findHands(img, draw=True)  # Now returns both image and hand list
+
+
+
+    cv2.imshow("Image", out)
+    cv2.waitKey(1)
